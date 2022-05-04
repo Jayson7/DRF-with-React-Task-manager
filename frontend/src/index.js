@@ -1,20 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './app'
-import { legacy_createStore as createStore } from 'redux'
-import { devToolsEnhancer } from '@redux-devtools/extension'
+import { combineReducers, createStore } from 'redux'
 import { Provider } from 'react-redux'
+import Navbar from './Components/Navbar/nav'
+import { taskReducer } from './Components/Redux/Reducers/todoStorage'
+import { composeWithDevTools } from '@redux-devtools/extension'
 
-import { todoReducer } from './redux/Reducers/TodoReducer'
-
-const store = createStore(todoReducer, devToolsEnhancer())
+const allReducers = combineReducers({
+  tasks: taskReducer,
+})
+const store = createStore(allReducers, composeWithDevTools())
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
-    </Provider>
+      <Navbar />
+    </Provider>{' '}
   </React.StrictMode>,
 )
