@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //  import { taskUpdate } from '../../actions/taskUpdate'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import { Button, Card, Col, Row } from 'react-bootstrap'
 
 export const Homepage = () => {
   const dispatch = useDispatch()
@@ -21,22 +22,29 @@ export const Homepage = () => {
   }, [])
   return (
     <div className="container">
-      <h1>Homepage</h1>
+      <h1 className="text-center my-5">All Tasks</h1>
 
-      <Row xs={1} md={2} className="g-4">
+      <Row xs={1} md={3} className="g-4">
         {todo
           ? todo.map((task) => {
               return (
                 <Col key="{ task.id}">
                   <Card>
-                    <Card.Img variant="top" src="holder.js/100px160" />
                     <Card.Body>
-                      <Card.Title>Card title</Card.Title>
+                      <Card.Title>{task.name_of_task}</Card.Title>
                       <Card.Text>
-                        This is a longer card with supporting text below as a
-                        natural lead-in to additional content. This content is a
-                        little bit longer.
+                        <p>{task.task}</p>
+                        <small className="text-center">
+                          {' '}
+                          {task.date_created}
+                        </small>
                       </Card.Text>
+                      <Card.Footer className="bg-black">
+                        <Button className="m-2" variant="info">
+                          View
+                        </Button>{' '}
+                        <Button className="m-2">Edit</Button>
+                      </Card.Footer>
                     </Card.Body>
                   </Card>
                 </Col>
