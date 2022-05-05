@@ -1,57 +1,50 @@
 import { React, useEffect } from 'react'
-// import { taskUpdate } from '../../actions/taskUpdate'
+import 'bootstrap/dist/css/bootstrap.min.css'
+//  import { taskUpdate } from '../../actions/taskUpdate'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { taskUpdate } from '../Redux/Actions/taskUpdate'
 
 export const Homepage = () => {
-  const todo = useSelector((store) => store.tasks)
   const dispatch = useDispatch()
-  const taskLoader = async () => {
-    await axios
+  const todo = useSelector((store) => store.tasks.task)
+  console.log(todo)
+  const getTasks = () => {
+    axios
       .get('http://localhost:8000')
-
       .then((res) => {
-        console.log(res.data)
-
-        dispatch(taskUpdate(res.data))
+        dispatch({ type: 'TASK_UPDATE', payload: res.data })
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch((err) => console.log(err))
   }
   useEffect(() => {
-    taskLoader()
+    getTasks()
   }, [])
+  return (
+    <div className="container">
+      <h1>Homepage</h1>
 
-  //   const renderList = todo.map((todoT) => {
-  //     const { id, task, name_of_task, done, date_created, date_ended } = todoT
-  //     return (
-  //       <div>
-  //         <div className="container">
-  //           <div className="col">
-  //             <div className="col-md-4">
-  //               <div className="card">
-  //                 <div className="card-body">
-  //                   <h5 className="card-title">{name_of_task}</h5>
-  //                   <p className="card-text">{task}</p>
-  //                   <p className="card-text">
-  //                     <small className="text-muted">
-  //                       Created: {date_created} | Ended: {date_ended}
-  //                     </small>
-  //                   </p>
-  //                   <button btn btn-info>
-  //                     View
-  //                   </button>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     )
-  //   })
-
-  return <> </>
+      <Row xs={1} md={2} className="g-4">
+        {todo
+          ? todo.map((task) => {
+              return (
+                <Col key="{ task.id}">
+                  <Card>
+                    <Card.Img variant="top" src="holder.js/100px160" />
+                    <Card.Body>
+                      <Card.Title>Card title</Card.Title>
+                      <Card.Text>
+                        This is a longer card with supporting text below as a
+                        natural lead-in to additional content. This content is a
+                        little bit longer.
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })
+          : null}
+      </Row>
+    </div>
+  )
 }
 export default Homepage
