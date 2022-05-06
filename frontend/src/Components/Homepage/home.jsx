@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //  import { taskUpdate } from '../../actions/taskUpdate'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import { Button, Card, Col, Row } from 'react-bootstrap'
+import { Card, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 export const Homepage = () => {
   const dispatch = useDispatch()
@@ -43,16 +43,20 @@ export const Homepage = () => {
                           </small>
                         </Card.Text>
                         <Card.Footer className="bg-black">
-                          <Button className="m-2" variant="info">
-                            <Link
-                              to={`details/${task.id}`}
-                              className="text-decoration-none text-white"
-                            >
-                              {' '}
-                              View{' '}
-                            </Link>
-                          </Button>{' '}
-                          <Button className="m-2">Edit</Button>
+                          <Link
+                            to={`details/${task.id}`}
+                            className=" btn btn-info  text-decoration-none text-dark m-2"
+                          >
+                            {' '}
+                            View{' '}
+                          </Link>
+
+                          <Link
+                            to=""
+                            className="m-2 btn btn-success  text-decoration-none text-dark"
+                          >
+                            Edit
+                          </Link>
                         </Card.Footer>
                       </Card.Body>
                     </Card>
