@@ -43,7 +43,7 @@ const Navbar = () => {
 
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route exact path="/detail/:id" element={<ViewTask />} />
+          <Route exact path="/details/:id" element={<ViewTask />} />
           <Route> 404 : Not Found</Route>
         </Routes>
       </BrowserRouter>
