@@ -3,6 +3,7 @@ import { Route, Routes, BrowserRouter, Link } from 'react-router-dom'
 import Homepage from '../Homepage/home'
 import { FaBars } from 'react-icons/fa'
 import { Nav, Offcanvas } from 'react-bootstrap'
+import ViewTask from '../ModifyTask/viewTask'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Navbar = () => {
@@ -42,6 +43,7 @@ const Navbar = () => {
 
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route exact path="/detail/:id" element={<ViewTask />} />
           <Route> 404 : Not Found</Route>
         </Routes>
       </BrowserRouter>

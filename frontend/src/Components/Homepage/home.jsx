@@ -7,8 +7,9 @@ import { Button, Card, Col, Row } from 'react-bootstrap'
 
 export const Homepage = () => {
   const dispatch = useDispatch()
+
   const todo = useSelector((store) => store.tasks.task)
-  console.log(todo)
+
   const getTasks = () => {
     axios
       .get('http://localhost:8000')
@@ -20,6 +21,7 @@ export const Homepage = () => {
   useEffect(() => {
     getTasks()
   }, [])
+
   return (
     <div className="container">
       <h1 className="text-center my-5">All Tasks</h1>
@@ -28,26 +30,28 @@ export const Homepage = () => {
         {todo
           ? todo.map((task) => {
               return (
-                <Col key="{ task.id}">
-                  <Card>
-                    <Card.Body>
-                      <Card.Title>{task.name_of_task}</Card.Title>
-                      <Card.Text>
-                        <p>{task.task}</p>
-                        <small className="text-center">
-                          {' '}
-                          {task.date_created}
-                        </small>
-                      </Card.Text>
-                      <Card.Footer className="bg-black">
-                        <Button className="m-2" variant="info">
-                          View
-                        </Button>{' '}
-                        <Button className="m-2">Edit</Button>
-                      </Card.Footer>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                <div key={task.id}>
+                  <Col>
+                    <Card>
+                      <Card.Body>
+                        <Card.Title>{task.name_of_task}</Card.Title>
+                        <Card.Text>
+                          {task.task}
+                          <small className="text-center">
+                            {' '}
+                            {task.date_created}
+                          </small>
+                        </Card.Text>
+                        <Card.Footer className="bg-black">
+                          <Button className="m-2" variant="info">
+                            View
+                          </Button>{' '}
+                          <Button className="m-2">Edit</Button>
+                        </Card.Footer>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </div>
               )
             })
           : null}
