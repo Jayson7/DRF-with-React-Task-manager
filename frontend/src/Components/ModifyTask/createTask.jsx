@@ -1,9 +1,39 @@
-import { React, useReducer } from 'react'
-import { Form, Button, InputGroup, FormControl } from 'react-bootstrap'
+import { React, useReducer, useState } from 'react'
+import { Form, Button, InputGroup, FormControl, Modal } from 'react-bootstrap'
 import axios from 'axios'
 import './createTask.css'
 
 function CreateTask() {
+  const [modalShow, setModalShow] = useState(false)
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Centered Modal</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+            ac consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
+
   const initialState = {
     task: '',
     task_name: '',
@@ -33,6 +63,7 @@ function CreateTask() {
             onSubmit={(e) => {
               e.preventDefault()
               console.log(task, task_name)
+
               axios
                 .post('http://localhost:8000/create', {
                   task: task,
@@ -45,6 +76,8 @@ function CreateTask() {
                 .catch(function (error) {
                   console.log(error)
                 })
+
+              setModalShow(true)
             }}
           >
             <Form.Group className="mb-3 " controlId="formBasicText">
@@ -80,6 +113,11 @@ function CreateTask() {
           </Form>
         </div>
       </div>
+
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   )
 }
