@@ -1,6 +1,7 @@
 import { React, useReducer, useState } from 'react'
 import { Form, Button, InputGroup, FormControl, Modal } from 'react-bootstrap'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import './createTask.css'
 
 function CreateTask() {
@@ -17,15 +18,21 @@ function CreateTask() {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            Task Generator
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
           <p> {serverResponse} </p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
+          <Button variant="primary">
+            {' '}
+            <Link to="/" className="text-white text-decoration-none">
+              {' '}
+              Homepage{' '}
+            </Link>{' '}
+          </Button>
         </Modal.Footer>
       </Modal>
     )
@@ -66,9 +73,11 @@ function CreateTask() {
                   task: task,
                   name_of_task: task_name,
                 })
-                .then(function (response) {})
+                .then(function (response) {
+                  setServerResponse('task created successfully')
+                })
                 .catch(function (error) {
-                  console.log(error)
+                  setServerResponse(error)
                 })
 
               setModalShow(true)
