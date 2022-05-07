@@ -14,12 +14,25 @@ def TaskView( request):
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+
+def TaskCreate(request):
+    # contact = Contact.objects.all()
+    serializer = TaskSerializer(data = request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def TaskHyperView(request, pk):

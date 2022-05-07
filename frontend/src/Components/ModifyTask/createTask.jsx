@@ -34,9 +34,13 @@ function CreateTask() {
               e.preventDefault()
               console.log(task, task_name)
               axios
-                .post('http://localhost:8000', [task, task_name])
+                .post('http://localhost:8000/create', {
+                  task: task,
+                  name_of_task: task_name,
+                })
                 .then(function (response) {
-                  console.log(response)
+                  console.log(response.data)
+                  console.log(response.status)
                 })
                 .catch(function (error) {
                   console.log(error)
