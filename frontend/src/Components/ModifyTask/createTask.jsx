@@ -5,6 +5,7 @@ import './createTask.css'
 
 function CreateTask() {
   const [modalShow, setModalShow] = useState(false)
+  const [serverResponse, setServerResponse] = useState('')
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -21,7 +22,7 @@ function CreateTask() {
         </Modal.Header>
         <Modal.Body>
           <h4>Centered Modal</h4>
-          <p></p>
+          <p> {serverResponse} </p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -65,10 +66,7 @@ function CreateTask() {
                   task: task,
                   name_of_task: task_name,
                 })
-                .then(function (response) {
-                  console.log(response.data)
-                  console.log(response.status)
-                })
+                .then(function (response) {})
                 .catch(function (error) {
                   console.log(error)
                 })
