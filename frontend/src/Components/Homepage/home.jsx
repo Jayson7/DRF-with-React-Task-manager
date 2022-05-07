@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { Card, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 export const Homepage = () => {
   const dispatch = useDispatch()
 
@@ -24,9 +25,9 @@ export const Homepage = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center my-5">All Tasks</h1>
-
+      <h1 className="text-center my-5"> All Tasks </h1>
       <Row xs={1} md={3} className="g-4">
+        {' '}
         {todo
           ? todo.map((task) => {
               return (
@@ -34,14 +35,15 @@ export const Homepage = () => {
                   <Col>
                     <Card>
                       <Card.Body>
-                        <Card.Title>{task.name_of_task}</Card.Title>
+                        <Card.Title> {task.name_of_task} </Card.Title>{' '}
                         <Card.Text>
-                          {task.task}
+                          {' '}
+                          {task.task}{' '}
                           <small className="text-center">
                             {' '}
-                            {task.date_created}
-                          </small>
-                        </Card.Text>
+                            {task.date_created}{' '}
+                          </small>{' '}
+                        </Card.Text>{' '}
                         <Card.Footer className="bg-black">
                           <Link
                             to={`details/${task.id}`}
@@ -50,22 +52,34 @@ export const Homepage = () => {
                             {' '}
                             View{' '}
                           </Link>
-
                           <Link
-                            to=""
+                            to={`editTask/${task.id}`}
                             className="m-2 btn btn-success  text-decoration-none text-dark"
                           >
-                            Edit
-                          </Link>
-                        </Card.Footer>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                            Edit{' '}
+                          </Link>{' '}
+                          <Button
+                            variant="danger"
+                            onClick={() => {
+                              axios
+                                .delete(`http://localhost:8000/task/${task.id}`)
+                                .then(() => {
+                                  getTasks()
+                                })
+                                .catch((err) => console.log(err))
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </Card.Footer>{' '}
+                      </Card.Body>{' '}
+                    </Card>{' '}
+                  </Col>{' '}
                 </div>
               )
             })
-          : null}
-      </Row>
+          : null}{' '}
+      </Row>{' '}
     </div>
   )
 }

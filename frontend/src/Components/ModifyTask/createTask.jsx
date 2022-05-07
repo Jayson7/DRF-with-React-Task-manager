@@ -77,7 +77,7 @@ function CreateTask() {
                   setServerResponse('task created successfully')
                 })
                 .catch(function (error) {
-                  setServerResponse(error)
+                  setServerResponse(error, 'There was an error')
                 })
 
               setModalShow(true)

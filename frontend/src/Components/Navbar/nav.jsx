@@ -5,6 +5,7 @@ import { FaBars } from 'react-icons/fa'
 import { Nav, Offcanvas } from 'react-bootstrap'
 import ViewTask from '../ModifyTask/viewTask'
 import CreateTask from '../ModifyTask/createTask'
+import EditTask from '../ModifyTask/editTask'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Navbar = () => {
@@ -52,6 +53,7 @@ const Navbar = () => {
           <Route path="/" element={<Homepage />} />
           <Route exact path="/details/:id" element={<ViewTask />} />
           <Route exact path="/createTask" element={<CreateTask />} />
+          <Route exact path="/editTask/:id" element={<EditTask />} />
           <Route> 404 : Not Found</Route>
         </Routes>
       </BrowserRouter>
